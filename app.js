@@ -7,8 +7,8 @@ var http = require('http').Server(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-User = require('./models/user');
-Library = require('./models/library');
+User = require('./Models/user');
+Library = require('./Models/library');
 
 //Connect to Mongoose
 mongoose.connect('mongodb://localhost/library');
