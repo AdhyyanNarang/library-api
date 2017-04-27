@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser =  require('body-parser');
 var mongoose = require('mongoose');
+var http = require('http').Server(app);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -113,5 +114,6 @@ app.put('/api/libraries/addOne/:_id', function(req, res) {
 });
 
 
-app.listen(process.env.PORT);
-console.log('Running on port 3000..');
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', http.address().port);
+});
