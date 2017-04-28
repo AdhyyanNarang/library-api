@@ -41,14 +41,47 @@ module.exports.addUser = function(user, callback){
 	User.create(user, callback);
 }
 
+
+// updates all the fields provided by client in the request of the body. The other fields are retained as the old ones.
 module.exports.updateUser = function(id, user, options, callback){
 	var query = {_id: id};
-	var update = {
-		username: user.username,
-		email: user.email,
-		password: user.password,
-		currentLibrary: user.currentLibrary,
-		preferences: user.preferences
-	}
-	User.findOneAndUpdate(query, update, options, callback);
+	User.findById(id, function(err, originalUser) {
+		var update = {
+			username: null,
+			email: null,
+			password: null,
+			currentLibrary: null,
+			preferences: null
+		}
+		if (user.username != null) {
+			update.username = user.username;
+		} else {
+			update.username = originalUser.username;
+		}
+
+		if (user.email != null) {
+			update.email = user.email;
+		} else {
+			update.email = originalUser.email;
+		}
+
+		if (user.password != null) {
+			update.password = user.password;
+		} else {
+			update.password = originalUser.password;
+		}
+
+		if (user.currentLibrary != null) {
+			update.currentLibrary = user.currentLibrary;
+		} else {
+			update.currentLibrary = originalUser.currentLibrary;
+		}
+
+		if (user.preferences != null) {
+			update.preferences = user.preferences;
+		} else {
+			update.preferences = originalUser.preferences;
+		}
+		User.findOneAndUpdate(query, update, options, callback);
+	});
 }

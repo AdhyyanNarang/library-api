@@ -14,7 +14,7 @@ var librarySchema = mongoose.Schema({
 		required: true
 	}, 
 	totalSeats: {
-		type: String,
+		type: Number,
 		required: true
 	},
 	seatCounter: {
@@ -29,14 +29,13 @@ var librarySchema = mongoose.Schema({
 
 var Library = module.exports = mongoose.model('Library', librarySchema);
 
-//get all Users
+//get all librarys
 
 module.exports.getLibraries = function(callback, limit){
 	Library.find(callback).limit(limit);
 }
 
-//get Single User
-
+//get Single library
 module.exports.getLibraryById = function(id,callback){
 	Library.findById(id, callback);
 }
@@ -45,7 +44,7 @@ module.exports.addLibrary = function(library, callback){
 	Library.create(library, callback);
 }
 
-module.exports.updateLibary = function(id, library, options, callback){
+module.exports.updateLibrary = function(id, library, options, callback){
 	var query = {_id: id};
 	var update = {
 		name: library.name,
@@ -55,13 +54,60 @@ module.exports.updateLibary = function(id, library, options, callback){
 		seatCounter: library.seatCounter,
 		image_url: library.image_url
 	}
-	User.findOneAndUpdate(query, update, options, callback);
+	Library.findOneAndUpdate(query, update, options, callback);
 }
 
-module.exports.updateLibaryAddOne = function(id, library, options, callback){
+module.exports.updatelibrary = function(id, library, options, callback){
 	var query = {_id: id};
-	var update = {
-		seatCounter: seatCounter + 1
-	}
-	User.findOneAndUpdate(query, update, options, callback);
+	Library.findById(id, function(err, originalLibrary) {
+		var update = {
+			name: null,
+			description: null,
+			location: Berkeley,
+			totalSeats: 0,
+			seatCounter: 0,
+			image_url: null
+		}
+		if (library.name != null) {
+			update.name = library.name;
+		} else {
+			update.name = originallibrary.name;
+		}
+
+		if (library.description != null) {
+			update.description = library.description;
+		} else {
+			update.description = originallibrary.description;
+		}
+
+		if (library.location != null) {
+			update.location = library.location;
+		} else {
+			update.location = originallibrary.location;
+		}
+
+		if (library.totalSeats != null) {
+			update.totalSeats = library.totalSeats;
+		} else {
+			update.totalSeats = originallibrary.totalSeats;
+		}
+
+		if (library.seatCounter != null) {
+			update.seatCounter = library.seatCounter;
+		} else {
+			update.seatCounter = originallibrary.seatCounter;
+		}
+
+		if (library.image_url != null) {
+			update.image_url = library.image_url;
+		} else {
+			update.image_url = originallibrary.image_url;
+		}
+		library.findOneAndUpdate(query, update, options, callback);
+	});
+}
+
+module.exports.updateLibraryAddOne = function(id, options, callback){
+	var query = {_id: id};
+	Library.findOneAndUpdate(query, {$inc: { "seatCounter" : 1 }} , options, callback);
 }

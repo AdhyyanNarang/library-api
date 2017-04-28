@@ -7,8 +7,8 @@ var http = require('http').Server(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-User = require('./Models/user');
-Library = require('./Models/library');
+User = require('./models/user');
+Library = require('./models/library');
 
 //Connect to Mongoose
 mongoose.connect('mongodb://localhost/library');
@@ -80,7 +80,7 @@ app.get('/api/libraries/:_id', function(req, res) {
 	});
 });
 
-app.post('/api/library', function(req, res) {
+app.post('/api/libraries', function(req, res) {
 	var library = req.body;
 	Library.addLibrary(library, function(err, library){
 		if (err) {
@@ -104,8 +104,7 @@ app.put('/api/libraries/:_id', function(req, res) {
 
 app.put('/api/libraries/addOne/:_id', function(req, res) {
 	var id = req.params._id;
-	var library = req.body;
-	Library.updateLibraryAddOne(id, library, {}, function(err, library){
+	Library.updateLibraryAddOne(id, {}, function(err, library){
 		if (err) {
 			throw err;
 		}
