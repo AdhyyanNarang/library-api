@@ -8,8 +8,8 @@ var port       = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-User = require('./models/user');
-Library = require('./models/library');
+User = require('.../models/user');
+Library = require('.../models/library');
 
 //Connect to Mongoose
 mongoose.connect('mongodb://localhost/library');
