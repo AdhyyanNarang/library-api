@@ -3,6 +3,7 @@ var app = express();
 var bodyParser =  require('body-parser');
 var mongoose = require('mongoose');
 var http = require('http').Server(app);
+var port       = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -113,6 +114,5 @@ app.put('/api/libraries/addOne/:_id', function(req, res) {
 });
 
 
-http.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', http.address().port);
-});
+app.listen(port);
+console.log('Magic happens on port: ' + port);
