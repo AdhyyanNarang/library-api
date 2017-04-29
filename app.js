@@ -2,8 +2,8 @@ var express = require('express');
 var app = express();
 var bodyParser =  require('body-parser');
 var mongoose = require('mongoose');
-var http = require('http').Server(app);
-var port       = process.env.PORT || 3000;
+var mongodb = require("mongodb");
+var port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -12,7 +12,7 @@ User = require('./models/user');
 Library = require('./models/library');
 
 //Connect to Mongoose
-mongoose.connect('mongodb://localhost/library');
+mongoose.connect('mongodb://adhyyan:Notrequired0@ds123381.mlab.com:23381/librarydb');
 var db = mongoose.connection;
 
 app.get('/', function(req,res){
@@ -113,7 +113,5 @@ app.put('/api/libraries/addOne/:_id', function(req, res) {
 	});
 });
 
-app.listen(process.env.PORT, '0.0.0.0', function(err) {
-  console.log("Started listening on %s", app.url);
-});
-console.log('Magic happens on port: ' + port);
+app.listen(port);
+console.log('Listening on port:' +port)
