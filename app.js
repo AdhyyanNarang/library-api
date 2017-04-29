@@ -113,6 +113,7 @@ app.put('/api/libraries/addOne/:_id', function(req, res) {
 	});
 });
 
-
-app.listen(port);
+app.listen(process.env.PORT, '0.0.0.0', function(err) {
+  console.log("Started listening on %s", app.url);
+});
 console.log('Magic happens on port: ' + port);
