@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
 
+
 var userSchema = mongoose.Schema({
 	username: {
 		type: String,
-		required: true
+		required: true,
+		index: {unique: true}
 	}, 
 	email: {
 		type: String,
@@ -11,14 +13,29 @@ var userSchema = mongoose.Schema({
 	}, 
 	password: {
 		type: String,
-		required: true
+		required: true,
+		select: false
 	},
 	currentLibrary: {
 		type: String,
 		required: true
 	}, 
+
 	preferences: {
 		type: Array,
+		required: false
+	},
+	timeSpent: {
+		Bechtel: {type: String},
+		Doe: {type: String},
+		MLK: {type: String},
+		EastAsian: {type: String},
+		Moffit: {type: String},
+		Environmental: {type: String},
+		Music: {type: String},
+		Haas: {type: String},
+		VLSB: {type: String},
+		Math: {type: String},
 		required: false
 	}
 });

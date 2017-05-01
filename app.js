@@ -29,6 +29,8 @@ app.get('/', function(req,res){
 
 var apiRoutes = express.Router(); 
 
+
+//authenticate route that returns a token
 apiRoutes.post('/authenticate', function(req, res) {
 
   // find the user
@@ -65,7 +67,20 @@ apiRoutes.post('/authenticate', function(req, res) {
 
 });
 
+//the sign up must happen before the token is given, so it has been placed before the middleware.
+apiRoutes.post('/users', function(req, res) {
+	var user = req.body;
+	User.addUser(user, function(err, user){
+		if (err) {
+			throw err;
+		}
+		res.json(user);
+	});
+});
 
+
+
+//middleware that only allows the HTTP requests after this point to go through if the token exists.
 apiRoutes.use(function(req, res, next) {
 
   // check header or url parameters or post parameters for token
@@ -116,17 +131,6 @@ apiRoutes.get('/users/:_id', function(req, res) {
 		res.json(user);
 	});
 });
-
-apiRoutes.post('/users', function(req, res) {
-	var user = req.body;
-	User.addUser(user, function(err, user){
-		if (err) {
-			throw err;
-		}
-		res.json(user);
-	});
-});
-
 
 apiRoutes.put('/users/:_id', function(req, res) {
 	var id = req.params._id;
