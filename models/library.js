@@ -57,13 +57,13 @@ module.exports.updateLibrary = function(id, library, options, callback){
 	Library.findOneAndUpdate(query, update, options, callback);
 }
 
-module.exports.updatelibrary = function(id, library, options, callback){
+module.exports.updateLibrary = function(id, library, options, callback){
 	var query = {_id: id};
 	Library.findById(id, function(err, originalLibrary) {
 		var update = {
 			name: null,
 			description: null,
-			location: Berkeley,
+			location: "Berkeley",
 			totalSeats: 0,
 			seatCounter: 0,
 			image_url: null
@@ -71,39 +71,39 @@ module.exports.updatelibrary = function(id, library, options, callback){
 		if (library.name != null) {
 			update.name = library.name;
 		} else {
-			update.name = originallibrary.name;
+			update.name = originalLibrary.name;
 		}
 
 		if (library.description != null) {
 			update.description = library.description;
 		} else {
-			update.description = originallibrary.description;
+			update.description = originalLibrary.description;
 		}
 
 		if (library.location != null) {
 			update.location = library.location;
 		} else {
-			update.location = originallibrary.location;
+			update.location = originalLibrary.location;
 		}
 
 		if (library.totalSeats != null) {
 			update.totalSeats = library.totalSeats;
 		} else {
-			update.totalSeats = originallibrary.totalSeats;
+			update.totalSeats = originalLibrary.totalSeats;
 		}
 
 		if (library.seatCounter != null) {
 			update.seatCounter = library.seatCounter;
 		} else {
-			update.seatCounter = originallibrary.seatCounter;
+			update.seatCounter = originalLibrary.seatCounter;
 		}
 
 		if (library.image_url != null) {
 			update.image_url = library.image_url;
 		} else {
-			update.image_url = originallibrary.image_url;
+			update.image_url = originalLibrary.image_url;
 		}
-		library.findOneAndUpdate(query, update, options, callback);
+		Library.findOneAndUpdate(query, update, options, callback);
 	});
 }
 
