@@ -1,6 +1,37 @@
 var mongoose = require('mongoose');
 
 
+var preferenceSchema = mongoose.Schema({
+	EngineeringLibrary: {
+		type: String,
+		required:true
+	},
+	EshlemanGroundFloor: {
+		type: String,
+		required: true
+	},
+	EnvironmentalDesignLibrary:{
+		type:String,
+		required: true
+	},
+	MusicLibrary: {
+		type:String,
+		required: true
+	},
+	MLKLowerStudyArea:{
+		type: String,
+		required: true
+	},
+	MLKUpperStudyArea:{
+		type: String,
+		required: true
+	},
+	DoeNorthReadingRoom: {
+		type: String,
+		required: true
+	}
+});
+
 var userSchema = mongoose.Schema({
 	username: {
 		type: String,
@@ -20,20 +51,11 @@ var userSchema = mongoose.Schema({
 		required: false
 	}, 
 	preferences: {
-		type: Array,
-		required: false
+		type: preferenceSchema,
+		required: true
 	},
 	timeSpent: {
-		Bechtel: {type: String},
-		Doe: {type: String},
-		MLK: {type: String},
-		EastAsian: {type: String},
-		Moffit: {type: String},
-		Environmental: {type: String},
-		Music: {type: String},
-		Haas: {type: String},
-		VLSB: {type: String},
-		Math: {type: String},
+		type: preferenceSchema,
 		required: false
 	}
 });

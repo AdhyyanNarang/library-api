@@ -9,17 +9,21 @@ var librarySchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	location: {
-		type: String,
-		required: true
-	}, 
-	totalSeats: {
+	index:{
 		type: Number,
 		required: true
 	},
+	location: {
+		type: String,
+		required: false
+	}, 
+	totalSeats: {
+		type: Number,
+		required: false
+	},
 	seatCounter: {
 		type: Number,
-		required: true
+		required: false
 	}, 
 	image_url: {
 		type: String,
