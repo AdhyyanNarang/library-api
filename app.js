@@ -75,21 +75,21 @@ apiRoutes.post('/users', function(req, res) {
     	username: usernameAdd
   	}, function(err, user) {
 
-    if (err) throw err;
+	    if (err) throw err;
 
-    if (!user) {
-    	User.addUser(usertoAdd, function(err, usertoAdd){
-		if (err) {
-			throw err;
+	    if (!user) {
+	    	User.addUser(usertoAdd, function(err, usertoAdd){
+			if (err) {
+				throw err;
+			}
+			res.json({success: true, usertoAdd});
+		});
+	      
+	    } else if (user) {
+	    	res.json({ success: false, message: 'Sign up failed. Username already exists.' });
 		}
-		res.json(usertoAdd);
-	});
-      
-    } else if (user) {
-    	res.json({ success: false, message: 'Sign up failed. Username already exists.' });
-	}
 
-});
+	});
 
 });
 
@@ -118,7 +118,6 @@ apiRoutes.use(function(req, res, next) {
     });
 
   } else {
-
     // if there is no token
     // return an error
     return res.status(403).send({ 
@@ -127,6 +126,7 @@ apiRoutes.use(function(req, res, next) {
     });
     
   }
+
 });
 
 

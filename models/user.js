@@ -17,9 +17,8 @@ var userSchema = mongoose.Schema({
 	},
 	currentLibrary: {
 		type: String,
-		required: true
+		required: false
 	}, 
-
 	preferences: {
 		type: Array,
 		required: false
