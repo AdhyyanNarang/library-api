@@ -10,7 +10,8 @@
   "dependencies": {
     "body-parser": "*",
     "express": "^4.15.2",
-    "mongoose": ""
+    "mongoose": "",
+    "morgan": "^1.8.1"
   },
   "author": "Adhyyan",
   "license": "ISC"
