@@ -32,7 +32,6 @@ var apiRoutes = express.Router();
 
 //authenticate route that returns a token
 apiRoutes.post('/authenticate', function(req, res) {
-
   // find the user
   User.findOne({
     username: req.body.username
@@ -69,14 +68,32 @@ apiRoutes.post('/authenticate', function(req, res) {
 
 //the sign up must happen before the token is given, so it has been placed before the middleware.
 apiRoutes.post('/users', function(req, res) {
-	var user = req.body;
-	User.addUser(user, function(err, user){
+	var usertoAdd = req.body;
+	var usernameAdd = usertoAdd.username;
+
+	User.findOne({
+    	username: usernameAdd
+  	}, function(err, user) {
+
+    if (err) throw err;
+
+    if (!user) {
+    	User.addUser(usertoAdd, function(err, usertoAdd){
 		if (err) {
 			throw err;
 		}
-		res.json(user);
+		res.json(usertoAdd);
 	});
+      
+    } else if (user) {
+    	res.json({ success: false, message: 'Sign up failed. Username already exists.' });
+	}
+
 });
+
+});
+
+
 
 
 
